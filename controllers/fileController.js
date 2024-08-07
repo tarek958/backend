@@ -61,29 +61,34 @@ const removeEmailFromPdf = async (filePath) => {
 };
 exports.uploadFile = async (req, res) => {
     try {
+        // Construct the file path
         const filePath = path.join(uploadDir, req.file.filename);
 
-       
+        // Call your function to remove email from PDF (assuming this function is defined elsewhere)
         await removeEmailFromPdf(filePath);
 
-        
+        // Create a new file object with all relevant information
         const newFile = new File({
             originalName: req.file.originalname,
             filename: req.file.filename,
             path: req.file.path,
             mimetype: req.file.mimetype,
             size: req.file.size,
-            titleSelect: req.body.titleSelect,
+            title: req.body.titleSelect, // Adjusted field names
             lastName: req.body.lastName,
             firstName: req.body.firstName,
             phone: req.body.phone,
             email: req.body.email,
             comments: req.body.comments,
+            education: JSON.parse(req.body.education), // Assuming education is passed as JSON string
+            experience: JSON.parse(req.body.experience), // Assuming experience is passed as JSON string
             fileUrl: `http://localhost:5000/uploads/${req.file.filename}`,
         });
 
+        // Save the new file record to the database
         await newFile.save();
 
+        // Send a success response
         res.status(200).json({ message: 'File uploaded and processed successfully', file: req.file, formData: req.body });
     } catch (error) {
         console.error('Error uploading file:', error);
@@ -91,38 +96,6 @@ exports.uploadFile = async (req, res) => {
     }
 };
 
-exports.uploadFile = async (req, res) => {
-    try {
-        const filePath = path.join(uploadDir, req.file.filename);
-
-        
-        await removeEmailFromPdf(filePath);
-        
-        const newFile = new File({
-            originalName: req.file.originalname,
-            filename: req.file.filename,
-            path: req.file.path,
-            mimetype: req.file.mimetype,
-            size: req.file.size,
-            titleSelect: req.body.titleSelect,
-            lastName: req.body.lastName,
-            firstName: req.body.firstName,
-            phone: req.body.phone,
-            email: req.body.email,
-            comments: req.body.comments,
-            fileUrl: 'http://localhost:5000/uploads/',
-        });
-
-    
-        await newFile.save();
-
-      
-        res.status(200).json({ message: 'File uploaded successfully', file: req.file, formData: req.body });
-    } catch (error) {
-        console.error('Error uploading file:', error);
-        res.status(500).json({ error: 'Failed to upload file' });
-    }
-};
 exports.getAllFiles = async (req, res) => {
     try {
         const files = await File.find();
