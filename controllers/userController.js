@@ -2,6 +2,7 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const authenticateToken = require('../middleware/authenticateToken');
+const { default: sendEmail } = require('../config/mail');
 
 
 
@@ -25,8 +26,12 @@ exports.registerUser = async (req, res) => {
       password: hashedPassword,
       telephone,
     });
-
+    console.log("test");
+    
     await user.save();
+    const subject = "Compte Atlantic-conseil"
+    const text = `votre mot de passe est: ${password}`
+    sendEmail(email, subject, text)
 
     res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {
@@ -125,7 +130,7 @@ exports.getUserRole = async (req, res) => {
 
  
 exports.updateUser = async (req, res) => {
-    const { firstName, lastName, email, password, telephone, role } = req.body;
+    const { firstName, lastName, email, password, telephone, role, company } = req.body;
     try {
 
       const user = await User.findById(req.params.id);
@@ -139,6 +144,7 @@ exports.updateUser = async (req, res) => {
       if (email) user.email = email;
       if (telephone) user.telephone = telephone;
       if (role) user.role = role;
+      if (company) user.company = company;
   
       if (password) {
         const salt = await bcrypt.genSalt(10);
