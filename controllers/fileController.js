@@ -80,6 +80,7 @@ exports.uploadFile = async (req, res) => {
             phone: req.body.phone,
             email: req.body.email,
             comments: req.body.comments,
+            company:req.body.company,
             education: JSON.parse(req.body.education), // Assuming education is passed as JSON string
             experience: JSON.parse(req.body.experience), // Assuming experience is passed as JSON string
             fileUrl: `http://localhost:5000/uploads/${req.file.filename}`,

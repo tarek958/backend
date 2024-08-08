@@ -28,7 +28,7 @@ const fileSchema = new mongoose.Schema({
   email: { type: String },
   comments: { type: String },
   fileUrl: { type: String },
-  company: { type: String, default: 'No Company' },
+  company: { type: String },
   cvUpload: { type: Buffer },  // Stores binary data
   education: [educationSchema], // Array of education objects
   experience: [experienceSchema] // Array of experience objects
