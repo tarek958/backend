@@ -9,7 +9,7 @@ const userRoutes = require('./routes/userRoutes');
 const projectRoutes = require('./routes/projectRoutes');
 const postRoutes = require('./routes/postRoutes');
 const app = express();
-const port = 5001;
+const port = 5000;
 
 
 connectDB();

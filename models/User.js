@@ -31,6 +31,8 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: 'user',
   },
+  confirmationToken: {type: String},
+  confirmed: { type: Boolean, default: false }, // To track email confirmation status
   
 });
 
