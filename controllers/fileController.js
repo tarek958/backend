@@ -29,7 +29,7 @@ exports.uploadFile = async (req, res) => {
             company:req.body.company,
             education: JSON.parse(req.body.education), 
             experience: JSON.parse(req.body.experience), 
-            fileUrl: `http://localhost:5000/uploads/${req.body.filename}`,
+            fileUrl: `http://148.113.194.169/uploads/`,
         });
 
         // Save the new file record to the database
