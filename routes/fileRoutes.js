@@ -20,6 +20,6 @@ router.post('/upload', upload.single('cvUpload'), fileController.uploadFile);
 router.get('/', authenticateToken,fileController.getAllFiles);
 
 router.delete('/:id', authenticateToken,fileController.removeFile);
-
+router.get('/:id',authenticateToken, fileController.getFileById);
 router.put('/', authenticateToken,fileController.editFile);
 module.exports = router;

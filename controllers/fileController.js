@@ -62,6 +62,17 @@ exports.deletePostById = async (req, res) => {
     }
   };
 
+exports.getFileById = async (req, res) => {
+  try {
+    const file = await File.findById(req.params.id);
+    if (!file) return res.status(404).json({ message: 'File not found' });
+    res.status(200).json(file);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
 exports.removeFile = async (req, res) => {
     try {
         const deletedFile = await File.findByIdAndDelete(req.params.id);

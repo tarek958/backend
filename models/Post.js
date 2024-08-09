@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
+  contract : {type:String,required:true},
   agence: { type: String, required: true },
   ville: { type: String, required: true },
   region: { type: String, required: true },
