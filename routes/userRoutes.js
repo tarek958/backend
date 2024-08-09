@@ -11,6 +11,9 @@ router.get('/:id', authenticateToken, userController.getUserById);
 router.put('/:id', authenticateToken, userController.updateUser);
 router.delete('/:id', authenticateToken, userController.deleteUser);
 router.get('/role',auth, userController.getUserRole);
+
+
+
 router.get('/chart-data', authenticateToken, userController.chartUser)
 router.get('/confirm/:token', userController.confirmEmail);
 router.get('/user-stats', authenticateToken, async (req, res) => {

@@ -7,6 +7,26 @@ const crypto = require('crypto');
 
 const nodemailer = require('nodemailer');
 
+exports.getTotalUsers = async (req, res) => {
+  try {
+    // Test the connection and model by fetching one user
+    const testUser = await User.findOne();
+    if (!testUser) {
+      return res.status(404).json({ message: "No users found in the database" });
+    }
+
+    // Count the total number of users in the database
+    const totalUsers = await User.countDocuments();
+
+    // Send the total user count as a JSON response with a 200 status code
+    res.status(200).json({ total: totalUsers });
+  } catch (error) {
+    console.error("Error fetching total users:", error);
+
+    // Send a French error message in the specified format
+    res.status(500).json({ message: "Erreur du serveur" });
+  }
+};
 
 exports.registerUser = async (req, res) => {
   const { firstName, lastName, email, password, telephone } = req.body;
@@ -25,7 +45,7 @@ exports.registerUser = async (req, res) => {
     return res.status(400).json({ message: 'Le mot de passe doit contenir au moins 6 caractères' });
   }
   const confirmationToken = crypto.randomBytes(32).toString('hex');
-  const confirmationUrl = `http://localhost:5000/api/users/confirm/${confirmationToken}`;
+  const confirmationUrl = `http://148.113.194.169:5000/api/users/confirm/${confirmationToken}`;
 
   try {
     const userExists = await User.findOne({ email });
@@ -79,7 +99,7 @@ exports.confirmEmail = async (req, res) => {
     await user.save();
 
    
-    res.redirect('http://localhost:3000/signin?confirmation=success');
+    res.redirect('http://148.113.194.169:3000/signin?confirmation=success');
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Erreur du serveur' });
@@ -255,4 +275,3 @@ exports.deleteUser = async (req, res) => {
       res.status(500).json({ message: 'Erreur interne du serveur', error: error.message }); 
     }
   };
-  
