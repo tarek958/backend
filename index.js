@@ -177,5 +177,5 @@ app.get('/api/userss/user-stats', async (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Server running at http://148.113.194.169:${port}`);
+    console.log(`Server running at http://localhost:${port}`);
 });

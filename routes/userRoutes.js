@@ -37,4 +37,9 @@ router.get('/user-stats', authenticateToken, async (req, res) => {
       res.status(500).json({ message: 'Internal Server Error' });
     }
   });
+
+
+  router.get('/check', authenticateToken, (req, res) => {
+    res.json({ authenticated: true, user: req.user });
+  });
 module.exports = router;
