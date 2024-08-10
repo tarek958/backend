@@ -45,7 +45,7 @@ exports.registerUser = async (req, res) => {
     return res.status(400).json({ message: 'Le mot de passe doit contenir au moins 6 caractères' });
   }
   const confirmationToken = crypto.randomBytes(32).toString('hex');
-  const confirmationUrl = `http://localhost:5000/api/users/confirm/${confirmationToken}`;
+  const confirmationUrl = `http://148.113.194.169:5000/api/users/confirm/${confirmationToken}`;
 
   try {
     const userExists = await User.findOne({ email });
@@ -99,7 +99,7 @@ exports.confirmEmail = async (req, res) => {
     await user.save();
 
    
-    res.redirect('http://localhost:3000/signin?confirmation=success');
+    res.redirect('http://148.113.194.169:3000/signin?confirmation=success');
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Erreur du serveur' });
