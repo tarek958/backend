@@ -39,7 +39,5 @@ router.get('/user-stats', authenticateToken, async (req, res) => {
   });
 
 
-  router.get('/check', authenticateToken, (req, res) => {
-    res.json({ authenticated: true, user: req.user });
-  });
+
 module.exports = router;

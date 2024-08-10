@@ -11,6 +11,7 @@ const userRoutes = require('./routes/userRoutes');
 const projectRoutes = require('./routes/projectRoutes');
 const postRoutes = require('./routes/postRoutes');
 const File = require('./models/File');
+const authenticateToken = require('./middleware/authenticateToken');
 const app = express();
 const port = 5000;
 
@@ -28,7 +29,9 @@ app.use('/api', userRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/posts', postRoutes);
-
+app.get('/check', authenticateToken, (req, res) => {
+  res.json({ authenticated: true, user: req.user });
+});
 
 app.get('/api/userss/total', async (req, res) => {
   try {
