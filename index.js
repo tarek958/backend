@@ -29,9 +29,15 @@ app.use('/api', userRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/posts', postRoutes);
+
 app.get('/check', authenticateToken, (req, res) => {
-  res.json({ authenticated: true, user: req.user });
+  if (req.user) {
+      res.json({ authenticated: true, user: req.user });
+  } else {
+      res.json({ authenticated: false });
+  }
 });
+
 
 app.get('/api/userss/total', async (req, res) => {
   try {
