@@ -29,7 +29,7 @@ exports.getTotalUsers = async (req, res) => {
 };
 exports.addUser = async (req, res) => {
  
-  const { firstName, lastName, email, password, telephone } = req.body;
+  const { firstName, lastName,company, email, password, telephone } = req.body;
 
 
  
@@ -48,6 +48,7 @@ exports.addUser = async (req, res) => {
     const user = new User({
       firstName,
       lastName,
+      company,
       email,
       password: hashedPassword,
       telephone,
