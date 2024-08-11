@@ -29,7 +29,7 @@ exports.getTotalUsers = async (req, res) => {
 };
 exports.addUser = async (req, res) => {
  
-
+  const { firstName, lastName, email, password, telephone } = req.body;
 
 
  
