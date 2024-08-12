@@ -12,8 +12,8 @@ router.get('/:id', authenticateToken, userController.getUserById);
 router.put('/:id', authenticateToken, userController.updateUser);
 router.delete('/:id', authenticateToken, userController.deleteUser);
 router.get('/role',auth, userController.getUserRole);
-
-
+router.post('/forgot-password',userController.forgotPassword)
+router.post('/reset-password', userController.confirmReset)
 
 router.get('/chart-data', authenticateToken, userController.chartUser)
 router.get('/confirm/:token', userController.confirmEmail);

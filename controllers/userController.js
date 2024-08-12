@@ -120,6 +120,62 @@ exports.registerUser = async (req, res) => {
 };
 
 
+exports.forgotPassword = async (req, res)=>{
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "L'adresse email n'existe pas." });
+    }
+
+  
+    const token = crypto.randomBytes(32).toString('hex');
+
+    user.resetPasswordToken = token;
+    user.resetPasswordExpires = Date.now() + 3600000; 
+    await user.save();
+
+    subject = 'Réinitialisation de mot de passe';
+    text =`Vous recevez cet email car vous (ou quelqu'un d'autre) avez demandé la réinitialisation du mot de passe pour votre compte.\n\n
+      Cliquez sur le lien suivant, ou copiez-le dans votre navigateur pour terminer le processus:\n\n
+      http://148.113.194.169:3001/reset-password/?token=${token}\n\n
+      Si vous n'avez pas demandé cette action, veuillez ignorer cet email et votre mot de passe restera inchangé.\n`;
+   
+      await sendEmail(email, subject, text);
+
+    res.status(200).json({ message: 'Email de réinitialisation envoyé.' });
+  } catch (error) {
+    res.status(500).json({ message: 'Erreur interne du serveur.' });
+  }
+}
+
+
+exports.confirmReset = async (req,res)=>{
+  const { token, password } = req.body;
+
+  try {
+    const user = await User.findOne({ 
+      resetPasswordToken: token, 
+      resetPasswordExpires: { $gt: Date.now() } 
+    });
+ 
+
+    if (!user) {
+      return res.status(400).json({ message: 'Le lien de réinitialisation est invalide ou a expiré.' });
+    }
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    user.password = hashedPassword; 
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+    await user.save();
+
+    res.status(200).json({ message: 'Mot de passe réinitialisé avec succès.' });
+  } catch (error) {
+    res.status(500).json({ message: 'Erreur lors de la réinitialisation du mot de passe.' });
+  }
+}
 exports.confirmEmail = async (req, res) => {
   const { token } = req.params;
 

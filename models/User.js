@@ -33,7 +33,8 @@ const UserSchema = new mongoose.Schema({
   },
   confirmationToken: {type: String},
   confirmed: { type: Boolean, default: false }, // To track email confirmation status
-  
+  resetPasswordToken: {type:String},
+  resetPasswordExpires: {type:Date},
 });
 
 module.exports = mongoose.model('User', UserSchema);
