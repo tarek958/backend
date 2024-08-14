@@ -4,20 +4,22 @@ const { PDFDocument, rgb } = require('pdf-lib');
 const File = require('../models/File');
 
 const pdfParse = require('pdf-parse');
-const uploadDir = path.join(__dirname, '../public/uploads');
+const uploadDir = path.join(__dirname, '../public/uploads/');
 
 exports.uploadFile = async (req, res) => {
     try {
       
-
-
+      const newFilename = req.body.filename;
+      const originalFilePath = req.file.destination;
+      const newFilePath = path.join(path.dirname(uploadDir),newFilename);
+      fs.renameSync(req.file.path,  `${uploadDir}${newFilename}`);
         
 
        
         const newFile = new File({
             originalName: req.file.originalname,
-            filename: req.body.filename,
-            path: req.file.path,
+            filenamee: req.body.filename,
+            path: newFilePath,
             mimetype: req.file.mimetype,
             size: req.file.size,
             title: req.body.titleSelect, 
@@ -36,7 +38,7 @@ exports.uploadFile = async (req, res) => {
         await newFile.save();
 
         // Send a success response
-        res.status(200).json({ message: 'File uploaded and processed successfully', file: req.file, formData: req.body });
+        res.status(200).json({ message: 'File uploaded and processed successfully', file: { ...req.file, filename: newFilename }, formData: req.body });
     } catch (error) {
         console.error('Error uploading file:', error);
         res.status(500).json({ error: 'Failed to upload and process file' });
