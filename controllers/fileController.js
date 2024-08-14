@@ -4,7 +4,7 @@ const { PDFDocument, rgb } = require('pdf-lib');
 const File = require('../models/File');
 
 const pdfParse = require('pdf-parse');
-const uploadDir = path.join(__dirname, '/var/www/html/uploads/');
+const uploadDir = path.join(__dirname, '../public/uploads/');
 
 exports.uploadFile = async (req, res) => {
     try {

@@ -7,7 +7,7 @@ const authenticateToken = require('../middleware/authenticateToken');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, '/var/www/html/uploads/')); 
+        cb(null, path.join(__dirname, '../public/uploads')); 
     },
     
     
