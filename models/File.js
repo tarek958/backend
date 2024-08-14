@@ -2,16 +2,16 @@ const mongoose = require('mongoose');
 
 // Define the schema for education
 const educationSchema = new mongoose.Schema({
-  degree: { type: String, required: true },
-  institution: { type: String, required: true },
-  year: { type: String, required: true }
+  degree: { type: String },
+  institution: { type: String },
+  year: { type: String }
 }, { _id: false });
 
 // Define the schema for experience
 const experienceSchema = new mongoose.Schema({
-  jobTitle: { type: String, required: true },
-  company: { type: String, required: true },
-  duration: { type: String, required: true }
+  jobTitle: { type: String },
+  company: { type: String },
+  duration: { type: String}
 }, { _id: false });
 
 // Define the main schema

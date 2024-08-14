@@ -8,8 +8,8 @@ const uploadDir = path.join(__dirname, '../public/uploads');
 
 exports.uploadFile = async (req, res) => {
     try {
-        // Construct the file path
-        const filePath = path.join(uploadDir, req.file.filename);
+      
+
 
         
 
@@ -32,7 +32,7 @@ exports.uploadFile = async (req, res) => {
             fileUrl: `http://148.113.194.169/uploads/`,
         });
 
-        // Save the new file record to the database
+       
         await newFile.save();
 
         // Send a success response
