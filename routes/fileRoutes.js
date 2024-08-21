@@ -18,8 +18,9 @@ const upload = multer({ storage: storage });
 
 router.post('/upload', upload.single('cvUpload'), fileController.uploadFile);
 router.get('/', authenticateToken,fileController.getAllFiles);
-
+router.get('/:PostId',authenticateToken,fileController.getFileByUuId);
 router.delete('/:id', authenticateToken,fileController.removeFile);
+
 router.get('/:id',authenticateToken, fileController.getFileById);
 router.put('/', authenticateToken,fileController.editFile);
 module.exports = router;

@@ -25,6 +25,7 @@ exports.uploadFile = async (req, res) => {
             title: req.body.titleSelect, 
             lastName: req.body.lastName,
             firstName: req.body.firstName,
+            PostId : req.body.PostId,
             phone: req.body.phone,
             email: req.body.email,
             comments: req.body.comments,
@@ -74,6 +75,15 @@ exports.getFileById = async (req, res) => {
   }
 };
 
+exports.getFileByUuId = async (req, res) => {
+  try {
+    const file = await File.findOne({ PostId: req.params.PostId });
+    if (!file) return res.status(404).json({ message: 'File not found' });
+    res.status(200).json(file);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 exports.removeFile = async (req, res) => {
     try {

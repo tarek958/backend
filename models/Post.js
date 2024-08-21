@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
+const { v4: uuidv4 } = require('uuid'); 
 
 const postSchema = new mongoose.Schema({
-  contract : {type:String,required:true},
+  uuid: { type: String, default: uuidv4 }, 
+  contract: { type: String, required: true },
   agence: { type: String, required: true },
   ville: { type: String, required: true },
   region: { type: String, required: true },

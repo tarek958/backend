@@ -30,6 +30,15 @@ exports.getPostById = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+exports.getPostByUiId = async (req, res) => {
+  try {
+    const post = await Post.findOne({ uuid: req.params.uuid });;
+    if (!post) return res.status(404).json({ message: 'Post not found' });
+    res.status(200).json(post);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 
 exports.updatePostById = async (req, res) => {

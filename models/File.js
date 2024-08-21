@@ -23,7 +23,9 @@ const fileSchema = new mongoose.Schema({
   size: { type: Number, required: true },
   title: { type: String },
   lastName: { type: String, required: true },
+
   firstName: { type: String, required: true },
+  PostId:{type : String},
   phone: { type: String, required: true },
   email: { type: String },
   comments: { type: String },
