@@ -27,14 +27,14 @@ const UserSchema = new mongoose.Schema({
     required: false,
     default: 'No Company',
   },
-  role:{
+  role: {
     type: String,
-    default: 'user',
+    enum: ['admin', 'user', 'agent', 'super_agent'], 
+    default: 'user', 
   },
-  confirmationToken: {type: String},
-  confirmed: { type: Boolean, default: false }, // To track email confirmation status
-  resetPasswordToken: {type:String},
-  resetPasswordExpires: {type:Date},
+  confirmationToken: { type: String }, // To track email confirmation status
+  resetPasswordToken: { type: String },
+  resetPasswordExpires: { type: Date },
 });
 
 module.exports = mongoose.model('User', UserSchema);

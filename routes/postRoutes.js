@@ -7,9 +7,10 @@ const auth = require('../middleware/auth');
 const authenticateToken = require('../middleware/authenticateToken');
 router.post('/add/', authenticateToken, postController.createPost);
 router.get('/all',authenticateToken, postController.getAllPosts);
+router.get('/allsuper',authenticateToken, postController.getAllSuperPosts);
 router.get('/:id',authenticateToken, postController.getPostById);
 router.get('/uuid/:uuid',authenticateToken, postController.getPostByUiId);
 router.put('/:id', authenticateToken,postController.updatePostById);
 router.delete('/:id', authenticateToken,postController.deletePostById);
-
+router.put('/:id/status',authenticateToken,postController.updatePostStatus);
 module.exports = router;
