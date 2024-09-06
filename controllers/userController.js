@@ -242,8 +242,11 @@ exports.getAllUsers = async (req, res) => {
     let query = {};
 
     if (role === 'agent' && company) {
-     
-      query = { company: company };
+      // Only fetch users from the same company and exclude those with the roles 'admin' or 'super_agent'
+      query = { 
+        company: company,
+        role: { $nin: ['admin', 'super_agent'] } // Exclude 'admin' and 'super_agent' roles
+      };
     }
 
     const users = await User.find(query).select('-password');
